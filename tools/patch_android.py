@@ -14,12 +14,13 @@ if os.path.exists('android/key.properties'):
         t = open(kts, encoding='utf-8').read()
         block = '''    signingConfigs {
         create("release") {
-            val props = java.util.Properties()
+            val props = Properties()
             val kf = rootProject.file("key.properties")
-            if (kf.exists()) { props.load(java.io.FileInputStream(kf)) }
+            if (kf.exists()) { props.load(FileInputStream(kf)) }
             keyAlias = props.getProperty("keyAlias")
             keyPassword = props.getProperty("keyPassword")
-            storeFile = props.getProperty("storeFile")?.let { file(it) }
+            val sf = props.getProperty("storeFile")
+            if (sf != null) { storeFile = file(sf) }
             storePassword = props.getProperty("storePassword")
         }
     }
@@ -27,6 +28,7 @@ if os.path.exists('android/key.properties'):
         assert 'buildTypes {' in t and 'signingConfigs.getByName("debug")' in t, 'unexpected build.gradle.kts'
         t = t.replace('    buildTypes {', block, 1)
         t = t.replace('signingConfigs.getByName("debug")', 'signingConfigs.getByName("release")', 1)
+        t = 'import java.io.FileInputStream\nimport java.util.Properties\n\n' + t
         open(kts, 'w', encoding='utf-8').write(t)
     else:
         t = open(gr, encoding='utf-8').read()
