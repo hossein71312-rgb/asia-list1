@@ -1,0 +1,31 @@
+name: asia_prices
+description: لیست قیمت آسیا
+publish_to: none
+version: 2.0.0+3
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  qr_code_scanner_plus: ^2.0.10
+  image_picker: ^1.1.2
+  path_provider: ^2.1.4
+  share_plus: ^10.1.0
+  shamsi_date: ^1.1.1
+  pdf: ^3.11.1
+  printing: ^5.13.2
+  archive: ^3.6.1
+  file_selector: ^1.0.3
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#7B2FA0"
+  adaptive_icon_foreground: "assets/icon/foreground.png"
+  min_sdk_android: 21
